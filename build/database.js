@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.purchases = exports.products = exports.users = void 0;
+exports.getAllUsers = exports.createUser = exports.purchases = exports.products = exports.users = void 0;
+const types_1 = require("./types");
 exports.users = [
     {
         id: "01",
@@ -16,15 +17,15 @@ exports.users = [
 exports.products = [
     {
         id: "03",
-        name: "Sucrilhos",
-        price: 17.90,
-        category: "Cereal"
+        name: "Camiseta branca",
+        price: 49.90,
+        category: types_1.Category.CLOTHES_AND_SHOES
     },
     {
         id: "04",
-        name: "Banana",
-        price: 5.79,
-        category: "fruta"
+        name: "Skate",
+        price: 259.90,
+        category: types_1.Category.SKATE
     }
 ];
 exports.purchases = [
@@ -35,4 +36,18 @@ exports.purchases = [
         totalPrice: exports.products[0].price * 5
     }
 ];
+function createUser(id, email, password) {
+    const newUser = {
+        id,
+        email,
+        password
+    };
+    exports.users = [...exports.users, newUser];
+    console.log("Cadastro realizado com sucesso!");
+}
+exports.createUser = createUser;
+function getAllUsers() {
+    return exports.users;
+}
+exports.getAllUsers = getAllUsers;
 //# sourceMappingURL=database.js.map
