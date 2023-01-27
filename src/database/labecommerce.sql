@@ -75,7 +75,7 @@ CREATE TABLE purchases (
     paid INTEGER NOT NULL,
     delivered_at TEXT,
     buyer_id TEXT NOT NULL,
-    FOREIGN KEY (id) REFERENCES users(id)
+    FOREIGN KEY (buyer_id) REFERENCES users(id),
 );
 
 SELECT * FROM purchases;
@@ -85,10 +85,33 @@ VALUES
     ('pu001', 90.50, true, DATE('now'), 'u001'),
     ('pu002', 50.30, true, NULL, 'u001'),
     ('pu003', 80.25, true, NULL, 'u002'),
-    ('pu004', 99.90, true, NULL, 'u003');
+    ('pu004', 80.25, true, NULL, 'u002'),
+    ('pu005', 99.90, true, NULL, 'u003'),
+    ('pu006', 99.90, true, NULL, 'u003');
 
 DROP TABLE purchases;
 
 SELECT * FROM purchases
 INNER JOIN users
 ON purchases.buyer_id = users.id;
+
+CREATE TABLE purchases_products (
+    purchase_id TEXT NOT NUll,
+    product_id TEXT NOT NULL,
+    quantity INTEGER NOT NULL
+);
+
+SELECT * FROM purchases_products;
+
+DROP TABLE purchases_products;
+
+INSERT INTO purchases_products (purchase_id, product_id, quantity)
+VALUES
+    ('pu001', 'p004', 5),
+    ('pu002', 'p005', 2),
+    ('pu003', 'p002', 1);
+
+SELECT * FROM purchases_products
+INNER JOIN purchases 
+WHERE purchases_products.purchase_id = purchases.id
+
