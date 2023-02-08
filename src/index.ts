@@ -122,13 +122,14 @@ app.post('/users', async(req: Request, res: Response) => {
 
 app.post('/products', async (req: Request, res: Response) => {
     try {
-        const {id, name, price, category} = req.body as TProduct
+        const {id, name, price, description, image_url} = req.body as TProduct
 
         const newProduct = {
             id,
             name,
             price,
-            category
+            description,
+            image_url 
         }
 
         await db('products').insert(newProduct)
@@ -151,13 +152,12 @@ app.post('/products', async (req: Request, res: Response) => {
 
 app.post ('/purchases', async (req: Request, res: Response) => {
     try {
-        const {id, total_price, paid, delivered_at, buyer_id} = req.body
+        const {id, total_price, paid, buyer_id} = req.body
 
         const newPurchase = {
             id,
             total_price,
             paid,
-            delivered_at,
             buyer_id
         }
 
@@ -321,7 +321,7 @@ app.put('/products/:id', async(req: Request, res: Response) => {
 
         const newName = req.body.name as string || undefined
         const newPrice = req.body.price as number || undefined
-        const newCategory = req.body.category as Category || undefined
+        const newDescription = req.body.description as string || undefined
 
         const [product] = await db('products').where({id: id})
 
@@ -329,7 +329,7 @@ app.put('/products/:id', async(req: Request, res: Response) => {
             const updatedProduct = {
                 name: newName || product.name,
                 price: isNaN(newPrice) ? product.price : newPrice,
-                category: newCategory || product.category
+                description: newDescription || product.description
             }
             await db('products').update(updatedProduct).where({id: id})
             res.status(200).send({message: "Produto atualizado com sucesso"})

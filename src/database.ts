@@ -18,13 +18,15 @@ export const products: TProduct[] = [
         id: "03",
         name: "Camiseta-branca",
         price: 49.90,
-        category: Category.CLOTHES_AND_SHOES
+        description: "Camiseta branca nike",
+        image_url: "https://picsum.photos/200"
     },
     {
         id: "04",
         name: "Skate",
         price: 259.90,
-        category: Category.SKATE
+        description: "Skate CBSKATE donout",
+        image_url: "https://picsum.photos/200"
     }
 ]
 
@@ -51,12 +53,13 @@ export function getAllUsers(): TUser[] {
     return users
 }
 
-export function createProduct (id: string, name: string, price: number, category: Category): void {
+export function createProduct (id: string, name: string, price: number, description: string, image_url: string): void {
     const newProduct: TProduct = {
         id,
         name,
         price,
-        category
+        description,
+        image_url
     }
 
     products.push(newProduct)
